@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'currency_scrapper/version'
+require_relative 'currency_scrapper/scrapper_error'
 
 module CurrencyScrapper
   class Error < StandardError; end
