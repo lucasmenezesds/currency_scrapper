@@ -1,6 +1,13 @@
+require:
+  - rubocop-rspec
+
 AllCops:
+  Exclude:
+    - 'Guardfile'
   NewCops: enable
   TargetRubyVersion: 3.2
+  SuggestExtensions:
+    rubocop-rake: false
 
 Style/StringLiterals:
   Enabled: true
@@ -15,3 +22,27 @@ Layout/LineLength:
 
 Metrics/CyclomaticComplexity:
   Max: 8
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 25
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/StubbedMock:
+  Enabled: false
