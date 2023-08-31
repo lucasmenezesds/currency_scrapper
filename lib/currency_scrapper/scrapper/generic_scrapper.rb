@@ -10,7 +10,9 @@ module CurrencyScrapper
       @base_url = base_url
     end
 
-    def html_data
+    private
+
+    def request_data
       request_data = HTTParty.get(File.join(@base_url, currency_path).to_s)
 
       raise UnsuccessfulRequest if request_data.code != 200 || request_data.response.body.empty?

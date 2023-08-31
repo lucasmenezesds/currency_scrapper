@@ -4,9 +4,15 @@ require_relative 'generic_scrapper'
 
 module CurrencyScrapper
   # Scrapper for Google Finance
-  class GoogleFinanceScrapper < CurrencyScrapper::GenericScrapper
+  class GoogleFinance < CurrencyScrapper::GenericScrapper
     XPATH_CURRENCY_CLASS = 'YMlKec fxKbKc'
     XPATH_TIMESTAMP_IDENTIFIER = 'Vebqub'
+
+    class << self
+      def quote_currency(base_currency, target_currency)
+        CurrencyScrapper::GoogleFinance.new(base_currency:, target_currency:).retrieve_currency_data
+      end
+    end
 
     def initialize(base_currency:, target_currency:)
       super(base_url: 'https://www.google.com/finance/quote/')
@@ -14,18 +20,21 @@ module CurrencyScrapper
       @target_currency = target_currency.to_s.upcase
     end
 
-    def currency_path
-      "#{@base_currency}-#{@target_currency}"
-    end
-
     def retrieve_currency_data
-      converted_html = convert_html(html_data)
+      response_body = request_data.body
+      converted_html = convert_html(response_body)
       parsed_data = safely_parse(converted_html)
-      sell_value = parsed_data[:sell_value]
-      timestamp = parsed_data[:timestamp]
+      sell_value = parsed_data.fetch(:sell_value, nil)&.to_f
+      timestamp = parsed_data.fetch(:timestamp, nil) # Google Format: '%b%e,%l:%M:%S %p UTC'
 
       quote_data(base_currency: @base_currency, target_currency: @target_currency,
                  sell_value:, timestamp:)
+    end
+
+    private
+
+    def currency_path
+      "#{@base_currency}-#{@target_currency}"
     end
 
     def safely_parse(converted_html)
