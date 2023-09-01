@@ -1,3 +1,5 @@
 --format documentation
 --color
 --require spec_helper
+
+--tag ~e2e:true
