@@ -2,10 +2,6 @@
 
 RSpec.describe CurrencyScrapper do
   it 'has a version number' do
-    expect(CurrencyScrapper::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
+    expect(CurrencyScrapper::VERSION).not_to be_nil
   end
 end
