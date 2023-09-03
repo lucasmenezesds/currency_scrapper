@@ -19,6 +19,7 @@ context 'when testing E2E scenarios' do
           timestamp_now = Time.parse(result[:timestamp]).strftime('%b%e,%l %p UTC')
 
           expect(sell_value).to be_an_instance_of(Float)
+          expect(sell_value).to be > 0.0
           expect(request_timestamp).to eq(timestamp_now)
         end
       end

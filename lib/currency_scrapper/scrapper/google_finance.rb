@@ -24,7 +24,7 @@ module CurrencyScrapper
       response_body = request_data.body
       converted_html = convert_html(response_body)
       parsed_data = safely_parse(converted_html)
-      sell_value = parsed_data.fetch(:sell_value, nil)&.to_f
+      sell_value = parsed_data.fetch(:sell_value, 0).to_f
       timestamp = parsed_data.fetch(:timestamp, nil) # Google Format: '%b%e,%l:%M:%S %p UTC'
 
       quote_data(base_currency: @base_currency, target_currency: @target_currency,
@@ -38,12 +38,13 @@ module CurrencyScrapper
     end
 
     def safely_parse(converted_html)
-      raise CurrencyNotFound if converted_html.text.include?("We couldn't find any match for your search")
-
       raise DataNotFound if converted_html.nil? || converted_html.text.empty?
 
-      currency_value = converted_html.xpath("//div[@class=\"#{XPATH_CURRENCY_CLASS}\"]")&.text
-      timestamp = converted_html.xpath("//div[@jsname=\"#{XPATH_TIMESTAMP_IDENTIFIER}\"]")&.text&.split(' · ')&.first
+      raise CurrencyNotFound if converted_html.text.include?("We couldn't find any match for your search")
+
+      currency_value = converted_html.xpath("//div[@class=\"#{XPATH_CURRENCY_CLASS}\"]").text
+      timestamp = converted_html.xpath("//div[@jsname=\"#{XPATH_TIMESTAMP_IDENTIFIER}\"]").text.split(' · ').first
+      timestamp = timestamp&.gsub(' ', ' ')
 
       { sell_value: currency_value,
         timestamp: }
