@@ -6,5 +6,4 @@ require_relative 'currency_scrapper/scrapper_error'
 
 module CurrencyScrapper
   class Error < StandardError; end
-  # Your code goes here...
 end

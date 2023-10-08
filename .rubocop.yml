@@ -20,6 +20,9 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 160
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/CyclomaticComplexity:
   Max: 8
 

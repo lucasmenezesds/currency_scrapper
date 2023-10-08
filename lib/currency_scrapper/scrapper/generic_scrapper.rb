@@ -27,7 +27,7 @@ module CurrencyScrapper
     # rubocop: disable Metrics/ParameterLists
     def quote_data(sell_value:, base_currency:, target_currency:, timestamp:, buy_value: nil, days_range: nil, previous_close_value: nil)
       result = {
-        sell_value:,
+        sell_value:, # Ask Value
         base_currency:,
         target_currency:,
         timestamp:
