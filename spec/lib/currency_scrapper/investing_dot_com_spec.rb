@@ -109,7 +109,7 @@ describe CurrencyScrapper::InvestingDotCom do
 
         expected_data = { base_currency: 'usd', buy_value: 144.99, days_range: '144.99 - 145.99',
                           previous_close_value: 145.2, sell_value: 145.1, target_currency: 'jpy',
-                          timestamp: 'Oct25,10:30:00 AM UTC' }
+                          timestamp: 'Oct25, 10:30:00 AM UTC' }
 
         expect(investing_dot_com).to receive(:request_data).and_return(httparty_response_double).once
         expect(httparty_response_double).to receive(:body).and_return('<html></html>').once
