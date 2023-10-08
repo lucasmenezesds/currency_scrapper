@@ -18,10 +18,20 @@ gem was purely developed as a hobby project.
 
 **NOTE:** Please make sure you're using the correct initials for the currency you would like to check it's values.
 
+**For Google Finance**
+
 ```ruby
 usd_jpy = CurrencyScrapper::GoogleFinance.quote_currency('USD', 'JPY')
 puts usd_jpy
 # => { :sell_value=>146.1795, :base_currency=>"USD", :target_currency=>"JPY", :timestamp=>"Sep 3, 10:38:56 PM UTC" }
+```
+
+**For Investing Dot Com**
+
+```ruby
+usd_jpy = CurrencyScrapper::InvestingDotCom.quote_currency('USD', 'JPY')
+puts usd_jpy
+# => {:sell_value=>149.3, :base_currency=>"usd", :target_currency=>"jpy", :timestamp=>"Oct  6, 8:59:53 PM UTC", :buy_value=>149.29, :previous_close_value=>148.5, :days_range=>"148.37 - 149.54"
 ```
 
 ## Contributing
@@ -29,6 +39,20 @@ puts usd_jpy
 Bug reports and pull requests are welcome on GitHub at https://github.com/lucasmenezesds/currency_scrapper. This project
 is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to
 the [code of conduct](https://github.com/lucasmenezesds/currency_scrapper/blob/main/CODE_OF_CONDUCT.md).
+
+### Running tests
+
+**Unit Tests**
+
+```
+bundle exec rspec
+```
+
+**End-to-End Tests**
+
+```
+bundle exec rspec --tag e2e:true
+```
 
 ## License
 
