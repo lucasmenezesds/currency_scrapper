@@ -12,7 +12,7 @@ describe CurrencyScrapper::GenericScrapper do
   end
 
   # rubocop: disable RSpec/SubjectStub
-  describe '#html_data' do
+  describe '#request_data' do
     let(:httparty_response_double) { instance_double(HTTParty::Response) }
 
     it 'sends a request via httparty successfully' do

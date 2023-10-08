@@ -15,6 +15,9 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
 
+  spec.metadata['disclaimer'] = 'This gem is provided as-is, without any warranties or guarantees. By using this gem,
+you acknowledge and accept that the author(s) shall not be held liable for any issues or damages arising from its use.'
+
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(__dir__) do
