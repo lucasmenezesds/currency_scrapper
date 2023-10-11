@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'currency_scrapper'
+require 'optparse'
+require 'rubygems'
+
+options = OptionParser.new do |opts|
+  opts.banner = 'CurrencyScrapper: an scrapper to get the currency quote from some websites'
+  opts.define_head('Usage: currency_scrapper <base_currency ticker>-<target_currency ticker> [options]')
+  opts.separator('')
+  opts.separator('Examples:')
+  opts.separator('  currency_scrapper usd-jpy')
+  opts.separator('  currency_scrapper usd-jpy -gf')
+  opts.separator('  currency_scrapper usd-jpy -idc')
+  opts.separator('')
+  opts.separator('Options:')
+
+  opts.on('-gf', 'It uses Google Finance to check the currency value') do
+    @type = :gf
+  end
+
+  opts.on('-idc', 'It uses Investing Dot Com to check the currency value') do
+    @type = :idc
+  end
+
+  opts.on_tail('-?', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+
+  opts.on_tail('-v', '--version', 'Show version') do
+    puts "# CurrencyScrapper (#{CurrencyScrapper::VERSION})"
+    exit
+  end
+end
+options.parse!
+
+currencies = ARGV.shift
+
+if currencies.to_s.strip.empty?
+  puts options
+  exit 1
+end
+
+begin
+  base, target = currencies&.split('-')
+
+  quote = case @type
+          when :idc
+            CurrencyScrapper::InvestingDotCom.quote_currency(base, target)
+          else
+            CurrencyScrapper::GoogleFinance.quote_currency(base, target)
+          end
+
+  CurrencyScrapper::CLI.prettified_puts(quote)
+rescue CurrencyScrapper::CurrencyNotFound, CurrencyScrapper::DataNotFound, CurrencyScrapper::UnsuccessfulRequest => e
+  puts ''
+  puts "# Error: #{e.message}"
+  puts "## Currencies: #{base.inspect} & #{target.inspect}"
+  puts ''
+end
