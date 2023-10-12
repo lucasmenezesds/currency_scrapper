@@ -40,7 +40,7 @@ module CurrencyScrapper
     def normalize_timestamp(timestamp)
       return if timestamp.nil?
 
-      Time.parse(timestamp).strftime('%b%e, %l:%M:%S %p UTC')
+      Time.parse(timestamp).strftime('%b %e,%l:%M:%S %p UTC')
     end
 
     private

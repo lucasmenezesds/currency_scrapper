@@ -27,7 +27,7 @@ you acknowledge and accept that the author(s) shall not be held liable for any i
     end
   end
   spec.bindir = 'exe'
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.executables = 'currency_scrapper'
   spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem

@@ -14,13 +14,49 @@ arising from its use.
 It's not recommended using the gem on a production environment since it depends on third-parties. Additionally the
 gem was purely developed as a hobby project.
 
+## Installation
+
+### Using Bundler
+
+```ruby
+gem 'currency_scrapper', git: 'https://github.com/lucasmenezesds/currency_scrapper'
+```
+
+### CLI
+
+Since the gem is not published you'll need to clone the repository.
+
+After cloning the repository, navigate to inside the folder and run
+
+```bash
+$ gem build currency_scrapper.gemspec
+```
+
+```bash
+$ gem install currency_scrapper-0.3.0.gem
+
+# OR
+
+$ gem install currency_scrapper-X.X.X.gem
+```
+
+Where `X.X.X` is the version of the gem generated after you run the build command.
+
 ## Usage
 
-**NOTE:** Please make sure you're using the correct initials for the currency you would like to check it's values.
+**NOTE:** Please make sure you're using the correct initials(ticker) for the currency you would like to check it's
+values.
+
+**NOTE 2:** This gem just gets the values from the website in question, if the currency values are wrong, please check
+the website before opening a PR.
+
+### In a project / IRB, etc~
 
 **For Google Finance**
 
 ```ruby
+require 'currency_scrapper'
+
 usd_jpy = CurrencyScrapper::GoogleFinance.quote_currency('USD', 'JPY')
 puts usd_jpy
 # => { :sell_value=>146.1795, :base_currency=>"USD", :target_currency=>"JPY", :timestamp=>"Sep 3, 10:38:56 PM UTC" }
@@ -29,9 +65,29 @@ puts usd_jpy
 **For Investing Dot Com**
 
 ```ruby
+require 'currency_scrapper'
+
 usd_jpy = CurrencyScrapper::InvestingDotCom.quote_currency('USD', 'JPY')
 puts usd_jpy
 # => {:sell_value=>149.3, :base_currency=>"usd", :target_currency=>"jpy", :timestamp=>"Oct  6, 8:59:53 PM UTC", :buy_value=>149.29, :previous_close_value=>148.5, :days_range=>"148.37 - 149.54"
+```
+
+### CLI
+
+**For Google Finance**
+
+```bash
+$ currency_scrapper usd-jpy
+
+# OR
+
+$ currency_scrapper usd-jpy -gf
+```
+
+**For Investing Dot Com**
+
+```bash
+$ currency_scrapper usd-jpy -idc
 ```
 
 ## Contributing
