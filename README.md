@@ -90,6 +90,33 @@ $ currency_scrapper usd-jpy -gf
 $ currency_scrapper usd-jpy -idc
 ```
 
+### Currency Tickers Examples
+
+Some examples of currency tickers are:
+
+```
+USD - United States Dollar
+EUR - Euro
+GBP - British Pound Sterling
+BRL - Brazilian Real
+JPY - Japanese Yen
+AUD - Australian Dollar
+CAD - Canadian Dollar
+CHF - Swiss Franc
+CNY - Chinese Yuan
+INR - Indian Rupee
+SGD - Singapore Dollar
+MXN - Mexican Peso
+NZD - New Zealand Dollar
+ZAR - South African Rand
+AED - United Arab Emirates Dirham
+HKD - Hong Kong Dollar
+SEK - Swedish Krona
+NOK - Norwegian Krone
+DKK - Danish Krone
+KRW - South Korean Won
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/lucasmenezesds/currency_scrapper. This project
