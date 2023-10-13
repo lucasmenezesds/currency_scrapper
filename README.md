@@ -1,5 +1,8 @@
 # CurrencyScrapper
 
+This gem is a wrapper of a simple scrapper to make it easy to check the currency quote.
+It's possible to use it in a project or the CLI option.
+
 ## Disclaimer
 
 Due the nature of this gem, it's provided as-is, without any warranties or guarantees of any kind. The author(s) of this
