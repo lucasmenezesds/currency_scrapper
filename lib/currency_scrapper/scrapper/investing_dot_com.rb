@@ -19,8 +19,8 @@ module CurrencyScrapper
 
     def initialize(base_currency:, target_currency:)
       super(base_url: 'https://www.investing.com/currencies/')
-      @base_currency = base_currency.to_s.downcase
-      @target_currency = target_currency.to_s.downcase
+      @base_currency = base_currency.to_s.downcase.tr('^a-z', '')
+      @target_currency = target_currency.to_s.downcase.tr('^a-z', '')
     end
 
     def retrieve_currency_data
@@ -46,7 +46,9 @@ module CurrencyScrapper
     private
 
     def request_data
-      request_data = HTTParty.get(File.join(@base_url, currency_path).to_s)
+      uri_parser = URI::Parser.new
+      escaped_uri = uri_parser.escape(File.join(@base_url, currency_path).to_s)
+      request_data = HTTParty.get(escaped_uri)
 
       raise CurrencyNotFound if request_data.code == 404
 

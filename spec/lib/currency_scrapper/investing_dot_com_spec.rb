@@ -16,6 +16,13 @@ describe CurrencyScrapper::InvestingDotCom do
       expect(result.instance_variable_get(:@target_currency)).to eq('jpy')
     end
 
+    it 'creates an object with sanitized currencies' do
+      result = described_class.new(base_currency: '%$', target_currency: '%$#$#@123jpy')
+
+      expect(result.instance_variable_get(:@base_currency)).to eq('')
+      expect(result.instance_variable_get(:@target_currency)).to eq('jpy')
+    end
+
     it 'has the expected constant values for the XPATH parse' do
       expect(CurrencyScrapper::InvestingDotCom::XPATH_BID_ASK_IDENTIFIER).to eq('bid-value')
       expect(CurrencyScrapper::InvestingDotCom::XPATH_CURRENCY_IDENTIFIER).to eq('instrument-price-last')
@@ -153,6 +160,15 @@ describe CurrencyScrapper::InvestingDotCom do
       result = investing_dot_com.send(:request_data)
 
       expect(result).to eq(httparty_response_double)
+    end
+
+    it 'requests to a sanitized URL' do
+      expect(investing_dot_com).to receive(:currency_path).and_return('%$-#@3921jpy')
+      expect(HTTParty).to receive(:get).with('https://www.investing.com/currencies/%25$-%23@3921jpy').and_return(httparty_response_double)
+      allow(httparty_response_double).to receive(:code).and_return(200)
+      allow(httparty_response_double).to receive_message_chain(:response, :body).and_return('some response')
+
+      investing_dot_com.send(:request_data)
     end
 
     it 'sends a request via httparty that returns 404 and raise an exception' do

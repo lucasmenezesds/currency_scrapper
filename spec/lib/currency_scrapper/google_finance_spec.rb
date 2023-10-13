@@ -16,6 +16,13 @@ describe CurrencyScrapper::GoogleFinance do
       expect(result.instance_variable_get(:@target_currency)).to eq('JPY')
     end
 
+    it 'creates an object with sanitized currencies' do
+      result = described_class.new(base_currency: '%$', target_currency: '%$#$#@123usd')
+
+      expect(result.instance_variable_get(:@base_currency)).to eq('')
+      expect(result.instance_variable_get(:@target_currency)).to eq('USD')
+    end
+
     it 'has the expected constant values for the XPATH parse' do
       expect(CurrencyScrapper::GoogleFinance::XPATH_CURRENCY_CLASS).to eq('YMlKec fxKbKc')
       expect(CurrencyScrapper::GoogleFinance::XPATH_TIMESTAMP_IDENTIFIER).to eq('Vebqub')
