@@ -16,8 +16,8 @@ module CurrencyScrapper
 
     def initialize(base_currency:, target_currency:)
       super(base_url: 'https://www.google.com/finance/quote/')
-      @base_currency = base_currency.to_s.upcase
-      @target_currency = target_currency.to_s.upcase
+      @base_currency = base_currency.to_s.upcase.tr('^A-Z', '')
+      @target_currency = target_currency.to_s.upcase.tr('^A-Z', '')
     end
 
     def retrieve_currency_data

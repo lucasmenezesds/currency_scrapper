@@ -16,14 +16,23 @@ describe CurrencyScrapper::GenericScrapper do
     let(:httparty_response_double) { instance_double(HTTParty::Response) }
 
     it 'sends a request via httparty successfully' do
-      expect(HTTParty).to receive(:get).and_return(httparty_response_double)
       expect(generic_scrapper).to receive(:currency_path).and_return('USD-JPY')
+      expect(HTTParty).to receive(:get).with('localhost:3000/USD-JPY').and_return(httparty_response_double)
       expect(httparty_response_double).to receive(:code).and_return(200)
       expect(httparty_response_double).to receive_message_chain(:response, :body).and_return('some response')
 
       result = generic_scrapper.send(:request_data)
 
       expect(result).to eq(httparty_response_double)
+    end
+
+    it 'requests to a sanitized URL' do
+      expect(generic_scrapper).to receive(:currency_path).and_return('%$-#@3921JPY')
+      expect(HTTParty).to receive(:get).with('localhost:3000/%25$-%23@3921JPY').and_return(httparty_response_double)
+      allow(httparty_response_double).to receive(:code).and_return(200)
+      allow(httparty_response_double).to receive_message_chain(:response, :body).and_return('some response')
+
+      generic_scrapper.send(:request_data)
     end
 
     it 'sends a request via httparty that DOESNT return 200' do

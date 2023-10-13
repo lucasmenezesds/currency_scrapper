@@ -13,7 +13,9 @@ module CurrencyScrapper
     private
 
     def request_data
-      request_data = HTTParty.get(File.join(@base_url, currency_path).to_s)
+      uri_parser = URI::Parser.new
+      escaped_uri = uri_parser.escape(File.join(@base_url, currency_path).to_s)
+      request_data = HTTParty.get(escaped_uri)
 
       raise UnsuccessfulRequest if request_data.code != 200 || request_data.response.body.empty?
 
