@@ -36,7 +36,7 @@ $ gem build currency_scrapper.gemspec
 ```
 
 ```bash
-$ gem install currency_scrapper-0.3.0.gem
+$ gem install currency_scrapper-0.3.1.gem
 
 # OR
 
