@@ -12,6 +12,8 @@ module CurrencyScrapper
       def quote_currency(base_currency, target_currency)
         CurrencyScrapper::GoogleFinance.new(base_currency:, target_currency:).retrieve_currency_data
       end
+
+      alias quote quote_currency
     end
 
     def initialize(base_currency:, target_currency:)
