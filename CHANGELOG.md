@@ -19,3 +19,7 @@
 ### [0.3.1]
 
 - Added URL sanitizer
+
+### [0.3.2]
+
+- Added alias to quote_currency

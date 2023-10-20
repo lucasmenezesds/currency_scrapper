@@ -63,6 +63,10 @@ require 'currency_scrapper'
 usd_jpy = CurrencyScrapper::GoogleFinance.quote_currency('USD', 'JPY')
 puts usd_jpy
 # => { :sell_value=>146.1795, :base_currency=>"USD", :target_currency=>"JPY", :timestamp=>"Sep 3, 10:38:56 PM UTC" }
+
+# OR
+CurrencyScrapper::GoogleFinance.quote('USD', 'JPY')
+
 ```
 
 **For Investing Dot Com**
@@ -73,6 +77,11 @@ require 'currency_scrapper'
 usd_jpy = CurrencyScrapper::InvestingDotCom.quote_currency('USD', 'JPY')
 puts usd_jpy
 # => {:sell_value=>149.3, :base_currency=>"usd", :target_currency=>"jpy", :timestamp=>"Oct  6, 8:59:53 PM UTC", :buy_value=>149.29, :previous_close_value=>148.5, :days_range=>"148.37 - 149.54"
+
+# OR
+
+CurrencyScrapper::InvestingDotCom.quote('USD', 'JPY')
+
 ```
 
 ### CLI

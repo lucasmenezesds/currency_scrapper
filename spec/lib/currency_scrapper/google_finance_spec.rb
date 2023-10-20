@@ -37,6 +37,15 @@ describe CurrencyScrapper::GoogleFinance do
 
       described_class.quote_currency('USD', 'JPY')
     end
+  end
+
+  describe '#quote' do
+    it 'behaves as an alias of #quote_currency' do
+      expect(described_class).to receive(:new).and_return(google_finance).once
+      expect(google_finance).to receive(:retrieve_currency_data).once
+
+      described_class.quote('USD', 'JPY')
+    end
     # rubocop: enable RSpec/SubjectStub
   end
 

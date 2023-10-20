@@ -40,6 +40,15 @@ describe CurrencyScrapper::InvestingDotCom do
 
       described_class.quote_currency('usd', 'jpy')
     end
+  end
+
+  describe '#quote' do
+    it 'behaves as an alias of #quote_currency' do
+      expect(described_class).to receive(:new).and_return(investing_dot_com).once
+      expect(investing_dot_com).to receive(:retrieve_currency_data).once
+
+      described_class.quote('usd', 'jpy')
+    end
     # rubocop: enable RSpec/SubjectStub
   end
 
